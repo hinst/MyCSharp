@@ -4,20 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using NLog;
+
 namespace MyCSharp
 {
 
-	public class TypeHierarchyAsText
+	public class TypeHierarchyInfo
 	{
 
-		public TypeHierarchyAsText(Type type)
+		Logger logger = LogManager.GetCurrentClassLogger();
+
+		public TypeHierarchyInfo(Type type)
 		{
 			this.type = type;
 		}
 
 		protected Type type;
 
-		public static string GetTypeHierarchyAsText(Type type)
+		protected string GetTypeHierarchyAsText() 
 		{
 			var text = new StringBuilder();
 			if (type != null)
@@ -33,20 +37,16 @@ namespace MyCSharp
 				}
 			}
 			else
+			{
+				logger.Debug("nth");
 				text.Append("Null type hierarchy");
+			}
 			return text.ToString();
 		}
 
 		public override string ToString()
 		{
-			return GetTypeHierarchyAsText(type);
-		}
-
-		// this one implicitly converst to string
-		public static implicit operator String(TypeHierarchyAsText instance)
-		{
-			return "";
-			//return instance.ToString();
+			return GetTypeHierarchyAsText();
 		}
 
 	}

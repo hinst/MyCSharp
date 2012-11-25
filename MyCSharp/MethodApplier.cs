@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Reflection;
+
+namespace MyCSharp
+{
+
+	public static class MethodApplier
+	{
+
+		public static T ApplyMethod<T>(ref T objectToModify, string methodName, params object[] parameters)
+		{
+			new Assert(objectToModify != null, new ArgumentNullException("objectToModify"));
+			Type[] types = parameters.Select(arg => arg.GetType()).ToArray();
+			MethodInfo method = objectToModify.GetType().GetMethod(methodName, types);
+			new Assert(
+				method.ReturnType == typeof(T), 
+				new InvalidCastException(
+					"Method " + method.Name + " of " + method.ReflectedType
+					+ " does not returns " + typeof(T).Name + 
+					" but " + method.ReturnType.Name + " instead"
+				)
+			);
+			objectToModify = (T)method.Invoke(objectToModify, parameters);
+			return objectToModify;
+		}
+
+		public static T Apply<T>(this D o, ref T objectToModify, string methodName, params object[] parameters)
+		{
+			return ApplyMethod(ref objectToModify, methodName, parameters);
+		}
+
+	}
+
+}

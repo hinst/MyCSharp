@@ -34,6 +34,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\..\WPF-Test\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,12 +46,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InstanceTypeHierarchyAsText.cs" />
+    <Compile Include="Assert.cs" />
+    <Compile Include="Do.cs" />
+    <Compile Include="VariableName.cs" />
+    <Compile Include="MethodApplier.cs" />
+    <Compile Include="StringReplaceHelper.cs" />
+    <Compile Include="TextIdentHelper.cs" />
+    <Compile Include="InstanceTypeHierarchyInfo.cs" />
     <Compile Include="ClassNameHelper.cs" />
     <Compile Include="CriticalException.cs" />
     <Compile Include="ExceptionInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypeHierarchyAsText.cs" />
+    <Compile Include="TypeHierarchyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
