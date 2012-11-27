@@ -12,17 +12,8 @@ namespace MyCSharp
 
 		public static T ApplyMethod<T>(ref T objectToModify, string methodName, params object[] parameters)
 		{
-			new Assert(objectToModify != null, new ArgumentNullException("objectToModify"));
-			Type[] types = parameters.Select(arg => arg.GetType()).ToArray();
-			MethodInfo method = objectToModify.GetType().GetMethod(methodName, types);
-			new Assert(
-				method.ReturnType == typeof(T), 
-				new InvalidCastException(
-					"Method " + method.Name + " of " + method.ReflectedType
-					+ " does not returns " + typeof(T).Name + 
-					" but " + method.ReturnType.Name + " instead"
-				)
-			);
+			Assert.NotNull(objectToModify);
+			var method = objectToModify.GetMethod(methodName, parameters);
 			objectToModify = (T)method.Invoke(objectToModify, parameters);
 			return objectToModify;
 		}

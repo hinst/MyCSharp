@@ -7,10 +7,25 @@ using System.Threading.Tasks;
 namespace MyCSharp
 {
 
-    public class CriticalException
+	public class CriticalException : Exception
+	{
+
+		public CriticalException(string message = null, Exception inner = null)
+			:
+			base
+			(
+				message ?? "Critical exception: " + (inner != null ? "see inner exception" : "unknown"),
+				inner
+			)
+		{
+		}
+
+	}
+
+	public static class CriticalExceptionHelper
     {
 
-        public static bool Is(Exception e)
+        public static bool IsCritical(this Exception e)
         {
             if (e is OutOfMemoryException) 
                 return true;
@@ -24,6 +39,8 @@ namespace MyCSharp
                 return true;
             if (e is System.Threading.ThreadAbortException)
                 return true;
+			if (e is CriticalException)
+				return true;
             return false;
         }
 

@@ -10,9 +10,9 @@ namespace MyCSharp
 	public static class StringReplaceHelper
 	{
 
-		static void ReplaceThis(this string s, string old, string neww)
+		static void Replace(this D o, string stringToModify, string oldString, string newString)
 		{
-			s = s.Replace(old, neww);
+			stringToModify = stringToModify.Replace(oldString, newString);
 		}
 
 	}

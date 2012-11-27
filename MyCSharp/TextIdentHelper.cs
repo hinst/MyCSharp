@@ -26,7 +26,7 @@ namespace MyCSharp
 			return string.Join(Environment.NewLine, lines);
 		}
 
-		public static string Unident(this string text, int startIndex = 0)
+		public static string Unident(this string text)
 		{
 			Regex regex;
 			regex = new Regex(@"^\s+");

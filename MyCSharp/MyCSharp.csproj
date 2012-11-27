@@ -47,8 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assert.cs" />
+    <Compile Include="GetMemberExpressionValueHelper.cs" />
+    <Compile Include="GetTypeNamesHelper.cs" />
+    <Compile Include="GetMethodHelper.cs" />
+    <Compile Include="GetTypesHelper.cs" />
+    <Compile Include="GetMethodDeclarationHelper.cs" />
     <Compile Include="Do.cs" />
-    <Compile Include="VariableName.cs" />
+    <Compile Include="StringBuilderExtension.cs" />
+    <Compile Include="MemberExpresssionHelper.cs" />
     <Compile Include="MethodApplier.cs" />
     <Compile Include="StringReplaceHelper.cs" />
     <Compile Include="TextIdentHelper.cs" />
