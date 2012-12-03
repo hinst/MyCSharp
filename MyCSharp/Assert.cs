@@ -10,10 +10,32 @@ namespace MyCSharp
 	public static class Assert
 	{
 
+		static Assert()
+		{
+			behaviour = DefaultBehaviour;
+		}
+
+		public enum Behaviour { ThrowException, LogError }
+
+		public static Behaviour[] DefaultBehaviour
+		{
+			get
+			{
+				return 
+					new Behaviour[] 
+					{ 
+						Behaviour.ThrowException
+					};
+			}
+		}
+
+		public static Behaviour[] behaviour;
+
 		public static void Condition(bool condition, Func<Exception> exception)
 		{
-			if (!condition)
-				throw exception();
+			if (false == condition)
+				if (behaviour.Contains(Behaviour.ThrowException))
+					throw exception();
 		}
 
 		public static void IsMemberExpression<T>(Expression<Func<T>> expression)
@@ -26,9 +48,10 @@ namespace MyCSharp
 			);
 		}
 
-		public static void Is<T>(T objectToCheck)
+		public static void Is<T>(object instance)
 		{
-			Condition(objectToCheck is T, () => new InvalidCastException(""));
+			NotNull(instance);
+			Condition(instance is T, () => new InvalidCastException(""));
 		}
 
 		public static void NotNull(object objectToCheck)

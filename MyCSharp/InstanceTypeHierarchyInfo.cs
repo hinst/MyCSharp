@@ -28,7 +28,7 @@ namespace MyCSharp
 			{
 				type = instance.GetType();
 				log.Debug(type.ToString());
-				result = GetTypeHierarchyAsText();
+				result = GetAsText();
 			}
 			else
 				result = "Null instance type hierarchy";
@@ -38,6 +38,16 @@ namespace MyCSharp
 		public override string ToString()
 		{
 			return GetInstanceTypeHierarchyAsText();
+		}
+
+	}
+
+	public static class GetInstanceTypeHierarchyInfoAsTextHelper
+	{
+
+		public static string GetTypeHierarchyInfoAsText(this object instance)
+		{
+			return new InstanceTypeHierarchyInfo(instance).ToString();
 		}
 
 	}

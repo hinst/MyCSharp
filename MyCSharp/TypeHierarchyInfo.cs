@@ -21,32 +21,74 @@ namespace MyCSharp
 
 		protected Type type;
 
-		protected string GetTypeHierarchyAsText() 
+		public List<Type> GetInheritanceLine(bool includeTarget = true)
 		{
-			var text = new StringBuilder();
-			if (type != null)
+			var type = this.type;
+			Assert.NotNull(type);
+			var line = new List<Type>();
+			if (includeTarget)
+				line.Add(type);
+			do
 			{
-				while (true)
+				type = type.BaseType;
+				if (type == null)
+					break;
+				line.Add(type);
+			}
+			while (true);
+			return line;
+		}
+
+		public const int AverageMaximumFullClassNameLength = 100;
+
+		public const string Ident = " ";
+
+		// <!> constraint: type != null
+		protected string GetAsTextInternal(bool includeTarget = true, bool fullName = true)
+		{
+			var line = GetInheritanceLine(includeTarget);
+			var count = line.Count;
+			var text = new StringBuilder(count * AverageMaximumFullClassNameLength);
+			if (count > 0)
+			{
+				int index = count - 1;
+				int identIndex = 0;
+				do
 				{
-					text.Append(type.FullName);
-					type = type.BaseType;
+					Type type = line[index];
 					if (type != null)
+					{
+						var typeName = fullName? type.FullName : type.Name;
+						Cycle.Forward(1, identIndex, (i) => text.Append(Ident) );
+						text.Append(typeName);
+					}
+					--index;
+					if (0 <= index)
+					{
 						text.AppendLine();
+						++ identIndex;
+					}
 					else
 						break;
 				}
+				while (true);
 			}
 			else
-			{
-				logger.Debug("nth");
-				text.Append("Null type hierarchy");
-			}
+				text.Append("No types.");
 			return text.ToString();
+		}
+
+		public string GetAsText() 
+		{
+			if (type != null)
+				return GetAsTextInternal();
+			else
+				return "Null type hierarchy";
 		}
 
 		public override string ToString()
 		{
-			return GetTypeHierarchyAsText();
+			return GetAsText();
 		}
 
 	}

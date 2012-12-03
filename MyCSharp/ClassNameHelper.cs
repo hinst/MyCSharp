@@ -12,12 +12,14 @@ namespace MyCSharp
 		public static string GetFullClassName(this object x)
 		{
 			const string NullClassName = "Null";
-			string result = NullClassName;
+			string result;
 			if (x != null)
 			{
 				Type type = x.GetType();
 				result = type.FullName;
 			}
+			else
+				result = NullClassName;
 			return result;
 		}
 
