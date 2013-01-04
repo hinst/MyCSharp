@@ -12,7 +12,7 @@ namespace MyCSharp
 
 		public static T ApplyMethod<T>(ref T objectToModify, string methodName, params object[] parameters)
 		{
-			Assert.NotNull(objectToModify);
+			Assert.Assigned(objectToModify);
 			var method = objectToModify.GetMethod(methodName, parameters);
 			objectToModify = (T)method.Invoke(objectToModify, parameters);
 			return objectToModify;

@@ -24,7 +24,7 @@ namespace MyCSharp
 		public List<Type> GetInheritanceLine(bool includeTarget = true)
 		{
 			var type = this.type;
-			Assert.NotNull(type);
+			Assert.Assigned(type);
 			var line = new List<Type>();
 			if (includeTarget)
 				line.Add(type);

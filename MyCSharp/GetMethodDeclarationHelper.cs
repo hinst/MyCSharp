@@ -18,17 +18,17 @@ namespace MyCSharp
 
 		public static string DeclareMethod(this D o, Type returnType, Type type, string methodName, params Type[] parameters)
 		{
-			Assert.NotNull(returnType);
-			Assert.NotNull(type);
-			Assert.NotNull(parameters);
+			Assert.Assigned(returnType);
+			Assert.Assigned(type);
+			Assert.Assigned(parameters);
 			return DeclareMethod(returnType.Name, type.Name, methodName, parameters.GetTypeNames());
 		}
 
 		public static string DeclareMethod(string returnType, string type, string methodName, params string[] parameters)
 		{
-			Assert.NotNull(type);
-			Assert.NotNull(methodName);
-			Assert.NotNull(parameters);
+			Assert.Assigned(type);
+			Assert.Assigned(methodName);
+			Assert.Assigned(parameters);
 			var text = new StringBuilder(MaxMethodDeclarationLength);
 			if (type != null)
 			{

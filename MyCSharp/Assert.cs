@@ -50,11 +50,11 @@ namespace MyCSharp
 
 		public static void Is<T>(object instance)
 		{
-			NotNull(instance);
+			Assigned(instance);
 			Condition(instance is T, () => new InvalidCastException(""));
 		}
 
-		public static void NotNull(object objectToCheck)
+		public static void Assigned(object objectToCheck)
 		{
 			Condition(objectToCheck != null, () => new ArgumentNullException());
 		}

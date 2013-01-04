@@ -20,9 +20,9 @@ namespace MyWPF
 		{
 			base.OnClick();
 			var tabItem = this.NavigateUp<TabItem>();
-			Assert.NotNull(tabItem);
+			Assert.Assigned(tabItem);
 			var tabControl = tabItem.NavigateUp<TabControl>();
-			Assert.NotNull(tabControl);
+			Assert.Assigned(tabControl);
 			tabControl.Items.Remove(tabItem);
 		}
 
