@@ -1,5 +1,7 @@
 ﻿using System;
 
+using NLog;
+
 namespace MyCSharp
 {
 
@@ -8,8 +10,10 @@ namespace MyCSharp
 
 		public static void Run<T>(TestApplication testApplication)
 		{
-			var testApplicationManager = new TestApplicationManager(testApplication);
+			new TestApplicationManager(testApplication).Run();
 		}
+
+		private Logger log = LogManager.GetCurrentClassLogger();
 
 		public TestApplicationManager(TestApplication testApplication)
 		{
@@ -18,12 +22,21 @@ namespace MyCSharp
 
 		protected TestApplication testApplication;
 
-		public void Run()
+		public bool Run()
 		{
+			bool result = false;
 			try
 			{
-				testApplication.Run();
+				log.Info("[ > ] Now running '" + testApplication.GetFullClassName() + "'...");
+				result = testApplication.Run();
+				log.Info("[ X ] Now exiting...");
 			}
+			catch (Exception exception)
+			{
+				log.Fatal(exception.GetExceptionDescriptionAsText());
+				Assert.NotCritical(exception);
+			}
+			return result;
 		}
 
 	}
