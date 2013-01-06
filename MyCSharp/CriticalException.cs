@@ -2,13 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace MyCSharp
 {
 
 	public class CriticalException : Exception
 	{
+
+		/// <summary>
+		/// Which exceptions are critical
+		/// </summary>
+		public static Type[] Types = 
+			new Type[] 
+			{
+				typeof(NullReferenceException),
+				typeof(ArgumentNullException),
+				typeof(OutOfMemoryException),
+				typeof(AppDomainUnloadedException),
+				typeof(BadImageFormatException),
+				typeof(CannotUnloadAppDomainException),
+				typeof(InvalidProgramException),
+				typeof(ThreadAbortException),
+				typeof(CriticalException)
+			};
 
 		public CriticalException(string message = null, Exception inner = null)
 			:
@@ -23,27 +40,20 @@ namespace MyCSharp
 	}
 
 	public static class CriticalExceptionHelper
-    {
+	{
 
-        public static bool IsCritical(this Exception e)
-        {
-            if (e is OutOfMemoryException) 
-                return true;
-            if (e is AppDomainUnloadedException) 
-                return true;
-            if (e is BadImageFormatException) 
-                return true;
-            if (e is CannotUnloadAppDomainException) 
-                return true;
-            if (e is InvalidProgramException) 
-                return true;
-            if (e is System.Threading.ThreadAbortException)
-                return true;
-			if (e is CriticalException)
-				return true;
-            return false;
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="exception"> 
+		/// Returns false if exception is null because no exception means no critical exception
+		/// </param>
+		/// <returns></returns>
+		public static bool IsCritical(this Exception exception)
+		{
+			return exception == null ? false : CriticalException.Types.Contains(exception.GetType());
+		}
 
-    }
+	}
 
 }

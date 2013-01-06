@@ -12,7 +12,7 @@ namespace MyCSharp
 	public class InstanceTypeHierarchyInfo : TypeHierarchyInfo
 	{
 
-		Logger log = LogManager.GetCurrentClassLogger();
+		private Logger log = LogManager.GetCurrentClassLogger();
 
 		public InstanceTypeHierarchyInfo(object instance) : base(null)
 		{

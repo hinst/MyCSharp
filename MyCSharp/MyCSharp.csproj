@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assert.cs" />
+    <Compile Include="CurrentThreadCulture.cs" />
     <Compile Include="ForCycle.cs" />
     <Compile Include="GetMemberExpressionValueHelper.cs" />
     <Compile Include="GetTypeNamesHelper.cs" />
