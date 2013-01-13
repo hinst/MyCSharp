@@ -86,6 +86,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestDrawingBox\DrawingBoxWindow.xaml.cs">
+      <DependentUpon>DrawingBoxWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestDrawingBox\PresentationApplication.xaml.cs">
+      <DependentUpon>PresentationApplication.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowPositionConfigurationElement.cs" />
     <Compile Include="WindowPositionManger.cs" />
     <Compile Include="ClosePageButton.cs" />
@@ -111,6 +117,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TestDrawingBox\PresentationApplication.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WaitControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -118,6 +128,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="TestDrawingBox\DrawingBoxWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

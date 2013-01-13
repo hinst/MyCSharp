@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestMyWPF
+namespace MyCSharp
 {
 
-	public class MainApplication
+	public static class AssignedHelper
 	{
 
-		public static int Main(string[] args)
+		public static bool Assigned(this object instance)
 		{
-
-			return 0;
+			return instance != null;
 		}
 
 	}

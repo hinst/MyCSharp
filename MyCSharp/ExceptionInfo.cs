@@ -17,9 +17,9 @@ namespace MyCSharp
 			if (exception != null)
 			{
 				text.AppendStrings(
-					"!Exception: ", exception.GetFullClassName(), Environment.NewLine,
-					"+Message: ", exception.Message.Ident("|", 1), Environment.NewLine,
-					"+Stack trace: ", exception.StackTrace.Unident().Ident("|", 1)
+					"Exception: ", exception.GetFullClassName(), Environment.NewLine,
+					"Message: ", exception.Message.Ident(" ", 1), Environment.NewLine,
+					"Stack trace: \n", exception.StackTrace.Unident()
 				);
 				if (exception.InnerException != null)
 				{

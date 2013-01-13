@@ -4,13 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyCSharp
+namespace MyWPF.TestDrawingBox
 {
 
-	public abstract class TestApplication
+	public class DrawingBoxTest
 	{
 
-		public abstract bool Run();
+		public DrawingBoxTest()
+			: base()
+		{
+
+		}
 
 	}
 

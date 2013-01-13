@@ -1,0 +1,1 @@
+﻿& ".\MyTest.exe" "MyWPF.TestDrawingBox.PresentationApplication, MyWPF"

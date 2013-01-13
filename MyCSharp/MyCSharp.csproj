@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assert.cs" />
+    <Compile Include="AssignedHelper.cs" />
     <Compile Include="CurrentThreadCulture.cs" />
     <Compile Include="ForCycle.cs" />
     <Compile Include="GetMemberExpressionValueHelper.cs" />
@@ -96,8 +97,7 @@
     <Compile Include="MethodApplier.cs" />
     <Compile Include="StringRepeatHelper.cs" />
     <Compile Include="StringReplaceHelper.cs" />
-    <Compile Include="TestApplication.cs" />
-    <Compile Include="TestApplicationManager.cs" />
+    <Compile Include="ApplicationClassRunner.cs" />
     <Compile Include="TextIdentHelper.cs" />
     <Compile Include="InstanceTypeHierarchyInfo.cs" />
     <Compile Include="ClassNameHelper.cs" />

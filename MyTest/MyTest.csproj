@@ -7,8 +7,8 @@
     <ProjectGuid>{86B2C00E-11BF-422A-93CF-D011B13CA5B0}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestMyWPF</RootNamespace>
-    <AssemblyName>TestMyWPF</AssemblyName>
+    <RootNamespace>MyTest</RootNamespace>
+    <AssemblyName>MyTest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,10 +31,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>MyTest.MainApplication</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NLog">
-      <HintPath>..\..\..\Coursework_2\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestDrawingBox.cs" />
+    <Compile Include="TestApplicationRunner.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -55,13 +55,16 @@
     </Content>
     <None Include="NLog.xsd" />
     <None Include="packages.config" />
+    <None Include="TestDrawingBox.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MyCSharp\MyCSharp.csproj">
+    <ProjectReference Include="..\MyCSharp\MyCSharp.csproj">
       <Project>{5f84df02-4ad7-44ba-823a-b615c2530469}</Project>
       <Name>MyCSharp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyWPF.csproj">
+    <ProjectReference Include="..\MyWPF\MyWPF.csproj">
       <Project>{791bed65-a787-4f81-b53f-0caad45d5783}</Project>
       <Name>MyWPF</Name>
     </ProjectReference>

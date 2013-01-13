@@ -25,7 +25,7 @@ namespace MyCSharp
 	public static class GetMethodHelper
 	{
 
-		public static MethodInfo GetMethod(this object objct, string methodName, params object[] parameters)
+		public static MethodInfo GetObjectMethod(this object objct, string methodName, params object[] parameters)
 		{
 			if (objct == null)
 				throw new GetMethodException(inner: new ArgumentNullException("objct"));
