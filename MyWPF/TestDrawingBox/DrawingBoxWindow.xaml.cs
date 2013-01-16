@@ -11,11 +11,6 @@ namespace MyWPF.TestDrawingBox
 			: base()
 		{
 			InitializeComponent();
-			DrawingBoxInstance.Start();
-		}
-
-		public void LoadedHandler(object sender, RoutedEventArgs eventArgs)
-		{
 		}
 
 	}

@@ -92,6 +92,8 @@
     <Compile Include="GetTypesHelper.cs" />
     <Compile Include="GetMethodDeclarationHelper.cs" />
     <Compile Include="Do.cs" />
+    <Compile Include="RandomHelper.cs" />
+    <Compile Include="RandomHelperTestApplication.cs" />
     <Compile Include="StringBuilderExtension.cs" />
     <Compile Include="MemberExpresssionHelper.cs" />
     <Compile Include="MethodApplier.cs" />

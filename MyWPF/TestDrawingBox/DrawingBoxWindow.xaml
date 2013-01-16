@@ -1,12 +1,12 @@
 ﻿<Window x:Class="MyWPF.TestDrawingBox.DrawingBoxWindow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:h="clr-namespace:MyWPF"
+	xmlns:h="clr-namespace:MyWPF.TestDrawingBox"
 	Title="DrawingBox: test"
 	x:Name="DrawingBoxWindowInstance"
 >
 	<DockPanel>
-		<h:DrawingBox x:Name="DrawingBoxInstance"/>
+		<h:TestDrawingBox x:Name="DrawingBoxInstance" BorderBrush="White" BorderThickness="1" Margin="3"/>
 	</DockPanel>
 </Window>
 
