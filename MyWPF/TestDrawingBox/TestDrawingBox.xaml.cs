@@ -20,15 +20,16 @@ namespace MyWPF.TestDrawingBox
 			Loaded += LoadedEventHandler;
 		}
 
+		public const int DefaultUpdateInterval = 1000 / 3;
+
 		public void LoadedEventHandler(object sender, RoutedEventArgs e)
 		{
-			log.Debug("Loaded; size: " + this.GetSize());
 			for (int i = 0; i < bouncingLine.Length; ++i)
 			{
-				bouncer.SetRandomSpeed(bouncingLine[i], this.GetSize());
-				bouncer.SetRandomPosition(ref bouncingLine[i], this.GetSize());
+				bouncer.SetRandomPosition(ref bouncingLine[i], this.GetActualSize());
+				bouncer.SetRandomSpeed(bouncingLine[i], this.GetActualSize());
 			}
-			Start(900);
+			Start(DefaultUpdateInterval);
 		}
 
 		public override void Start(int interval)
@@ -37,7 +38,7 @@ namespace MyWPF.TestDrawingBox
 			base.Start(interval);
 		}
 
-		public bool EnableLogOnRender = true;
+		public bool EnableLogOnRender = false;
 
 		protected override void OnRender(DrawingContext drawingContext)
 		{
@@ -56,7 +57,7 @@ namespace MyWPF.TestDrawingBox
 
 		protected void DrawCross(DrawingContext context)
 		{
-			Rect cross = Rect.Inflate(new Rect(this.GetSize()), -10, -10);
+			Rect cross = Rect.Inflate(new Rect(this.GetActualSize()), -10, -10);
 			context.DrawLine(BlackPen.Instance, cross.TopLeft, cross.BottomRight);
 			context.DrawLine(BlackPen.Instance, cross.BottomLeft, cross.TopRight);
 		}
@@ -73,20 +74,22 @@ namespace MyWPF.TestDrawingBox
 
 		protected void DrawBouncingLine(DrawingContext context)
 		{
-			context.DrawLine(BlackPen.Instance, bouncingLine[0], bouncingLine[1]);
-			log.Debug(String.Join(" ", bouncingLine[0]));
-			Cycle.Forward(
-				0, 
-				bouncingLine.Length, 
-				(i) =>
+			if (Started)
+			{
+				context.DrawLine(BlackPen.Instance, bouncingLine[0], bouncingLine[1]);
+				Cycle.Forward(
+					0,
+					bouncingLine.Length,
+					(i) =>
 					{
 						bouncer.BounceMove(
-							ref bouncingLine[i], 
-							this.GetSize(), 
+							ref bouncingLine[i],
+							this.GetActualSize(),
 							(double)this.Interval / 1000
-						); 
+						);
 					}
-			);
+				);
+			}
 		}
 
 	}

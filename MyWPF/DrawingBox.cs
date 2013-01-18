@@ -53,6 +53,14 @@ namespace MyWPF
 			timer.Start();
 		}
 
+		public bool Started
+		{
+			get
+			{
+				return timer != null;
+			}
+		}
+
 		/// <summary>
 		/// Returns current interval (millisecond)
 		/// </summary>

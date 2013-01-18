@@ -70,6 +70,9 @@
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MB.Tools">
+      <HintPath>..\..\MetaPropertyExtender\MB.Tools.MetaProperties\bin\Debug\MB.Tools.dll</HintPath>
+    </Reference>
     <Reference Include="NLog">
       <HintPath>..\..\WPF-Test\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>

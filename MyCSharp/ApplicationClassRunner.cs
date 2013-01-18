@@ -73,12 +73,22 @@ namespace MyCSharp
 
 		public static int RunMain(string typeName, string[] arguments)
 		{
-			Type type = Type.GetType(typeName, true);
-			Assert.Condition(
-				type != null, 
-				() => new Exception("Type '" + typeName + "' not found.")
-			);
-			return RunMain(type, arguments);
+			int result = -1;
+			try
+			{
+				Type type = Type.GetType(typeName, true);
+				Assert.Condition(
+					type != null,
+					() => new Exception("Type '" + typeName + "' not found.")
+
+				);
+				result = RunMain(type, arguments);
+			}
+			catch (Exception e)
+			{
+				WriteLine(e.GetExceptionDescriptionAsText());
+			}
+			return result;
 		}
 
 		public static int Main(string[] arguments)

@@ -6,6 +6,8 @@ using System.Reflection;
 
 using NLog;
 
+using MB.Tools;
+
 using MyCSharp;
 
 
@@ -19,7 +21,6 @@ namespace MyWPF
 
 		public PointBouncer()
 		{
-			data = new Dictionary<Point, Data>();
 			random = new Random(DateTime.Now.Millisecond);
 		}
 
@@ -46,30 +47,44 @@ namespace MyWPF
 				}
 			}
 
-		}
+			protected static string pointMetaPropertyName;
 
-		protected Dictionary<Point, Data> data;
+			public static string PointMetaPropertyName
+			{
+				get
+				{
+					if (null == pointMetaPropertyName)
+						pointMetaPropertyName = typeof(Data).FullName;
+					return pointMetaPropertyName;
+				}
+			}
+
+		}
 
 		protected Random random;
 
 		private Data GetData(Point point)
 		{
-			Data pointData = null;
-			if (false == data.ContainsKey(point))
-			{
-				pointData = new Data();
-				data.Add(point, pointData);
-			}
+			Data result = null;
+			if (MetaPropertyExtender.HasMetaProperty(point, Data.PointMetaPropertyName))
+				result = 
+					(Data)
+						MetaPropertyExtender.GetMetaProperty(
+							point, Data.PointMetaPropertyName
+						);
 			else
 			{
-				pointData = data[point];
+				result = new Data();
+				MetaPropertyExtender.SetMetaProperty(
+					point, Data.PointMetaPropertyName, result
+				);
 			}
-			return pointData;
+			return result;
 		}
 
-		public void SetSpeed(Point point, Point speed)
+		public string GetPointInfoAsText(Point point)
 		{
-			GetData(point).Speed = speed;
+			return "Point: " + point + "; speed: " + GetData(point).Speed;
 		}
 
 		public const double DefaultMaximalSpeedFraction = 0.1;
@@ -86,10 +101,12 @@ namespace MyWPF
 					(d) => new Point(d * DefaultMinimalSpeedFraction, d * DefaultMaximalSpeedFraction)
 				)
 				.Select(
-					(p) => random.NextDouble(p.X, p.Y)
+					(p) => random.NextSignedDouble(p.X, p.Y)
 				)
 				.ToArray()
 				.CreateWindowsPoint();
+			log.Debug(MethodBase.GetCurrentMethod().Name + " routine completed;"
+				+ "\tspeed is: " + GetData(point).Speed);
 		}
 
 		public void SetRandomPosition(ref Point point, Size areaSize)
@@ -99,9 +116,9 @@ namespace MyWPF
 			point.X = x;
 			var y = random.NextDouble(0, areaSize.Height);
 			point.Y = y;
-			log.Debug(MethodBase.GetCurrentMethod().Name + " routine completed;"
-				+ "  point is: " + point.ToString() + ";"
-				+ "  x is: " + x + ", y is: " + y);
+			//log.Debug(MethodBase.GetCurrentMethod().Name + " routine completed;"
+			//	+ "  point is: " + point.ToString() + ";"
+			//	+ "  x is: " + x + ", y is: " + y);
 		}
 
 		/// <summary>
@@ -127,6 +144,7 @@ namespace MyWPF
 
 		public void BounceMove(ref Point point, Size areaSize, double interval)
 		{
+			log.Debug(" --- " + GetPointInfoAsText(point));
 			var data = GetData(point);
 			Point speed = data.Speed;
 			if (point.X > areaSize.Width && speed.X > 0)
@@ -140,6 +158,8 @@ namespace MyWPF
 			point.X += speed.X * interval;
 			point.Y += speed.Y * interval;
 			data.Speed = speed;
+			log.Debug("data.Speed = " + data.Speed + "; speed = " + speed);
+			log.Debug(" +++ " + GetPointInfoAsText(point));
 		}
 
 	}

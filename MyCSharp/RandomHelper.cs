@@ -13,7 +13,7 @@ namespace MyCSharp
 
 		public static double NextSignedDouble(this Random random, double min, double max)
 		{
-			return NextSign(random, true) * NextDouble(random, min, max);
+			return NextSign(random, false) * NextDouble(random, min, max);
 		}
 
 		public static int NextSign(this Random random, bool allowZero)
