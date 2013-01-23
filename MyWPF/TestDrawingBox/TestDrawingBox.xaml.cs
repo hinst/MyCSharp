@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Linq;
+using System.Reflection;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 
@@ -13,6 +14,8 @@ namespace MyWPF.TestDrawingBox
 	public partial class TestDrawingBox : DrawingBox
 	{
 
+		private Logger log = LogManager.GetCurrentClassLogger();
+
 		public TestDrawingBox()
 			: base()
 		{
@@ -20,21 +23,59 @@ namespace MyWPF.TestDrawingBox
 			Loaded += LoadedEventHandler;
 		}
 
-		public const int DefaultUpdateInterval = 1000 / 3;
+		public const int DefaultUpdateInterval = 1000/40;
+		//public const int DefaultUpdateInterval = ;
 
 		public void LoadedEventHandler(object sender, RoutedEventArgs e)
 		{
-			for (int i = 0; i < bouncingLine.Length; ++i)
-			{
-				bouncer.SetRandomPosition(ref bouncingLine[i], this.GetActualSize());
-				bouncer.SetRandomSpeed(bouncingLine[i], this.GetActualSize());
-			}
+			log.Debug("Loaded...");
+			CreateBouncingLines();
 			Start(DefaultUpdateInterval);
+			log.Debug("Loaded.");
+		}
+
+		public void LoadedEventHandlerSafe(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				LoadedEventHandler(sender, e);
+			}
+			catch (Exception exception)
+			{
+				log.Error("While executing " + MethodBase.GetCurrentMethod().Name + ":\n"
+					+ exception.GetExceptionDescriptionAsText());
+			}
+		}
+
+		/// <summary>
+		/// Создаёт новую движущуюся линию и задаёт случайные значения для неё
+		/// </summary>
+		public Bouncer.MovingPoint[] NewRandomMovingLine()
+		{
+			var result = new Bouncer.MovingPoint[2];
+			for (int i = 0; i < result.Length; ++i)
+			{
+				result[i] = new Bouncer.MovingPoint();
+				bouncer.SetRandom(result[i], this.GetActualSize());
+			}
+			return result;
+		}
+
+		protected const bool LogCreateMovingLinesProgress = true;
+
+		public void CreateBouncingLines()
+		{
+			log.Debug("CreateMovingLines...");
+			for (int i = 0; i < bouncingLines.Length; ++i)
+			{
+				bouncingLines[i] = NewRandomMovingLine();
+			}
 		}
 
 		public override void Start(int interval)
 		{
 			log.Debug("Now starting...");
+			drawFramesPerSecondEnabled = true;
 			base.Start(interval);
 		}
 
@@ -47,12 +88,26 @@ namespace MyWPF.TestDrawingBox
 			base.OnRender(drawingContext);
 		}
 
+		public const bool DrawCrossEnabled = false;
+
+		public const bool DrawDebugRectangleEnabled = false;
+
 		protected override void Draw(DrawingContext context)
 		{
 			base.Draw(context);
-			//DrawCross(context);
-			//DrawRectangleDebugVersion(context);
-			DrawBouncingLine(context);
+			if (DrawCrossEnabled)
+				DrawCross(context);
+			if (DrawDebugRectangleEnabled)
+				DrawRectangleDebugVersion(context);
+			DrawAnimations(context);
+		}
+
+		protected void DrawAnimations(DrawingContext context)
+		{
+			foreach (Bouncer.MovingPoint[] line in bouncingLines)
+				DrawLine(context, line);
+			foreach (Bouncer.MovingPoint[] line in bouncingLines)
+				BounceLine(line);
 		}
 
 		protected void DrawCross(DrawingContext context)
@@ -65,31 +120,35 @@ namespace MyWPF.TestDrawingBox
 		protected void DrawRectangleDebugVersion(DrawingContext context)
 		{
 			Rect rectangle = new Rect(10, 10, 20, 20);
-			context.DrawRectangle(BlackBrush.Instance, BlackPen.Instance, rectangle);
+			context.DrawRectangle(QuickBrush.Black, BlackPen.Instance, rectangle);
 		}
 
-		protected static Point[] bouncingLine = new Point[2];
+		public const int CountOfLines = 100;
 
-		protected PointBouncer bouncer = new PointBouncer();
+		protected Bouncer.MovingPoint[][] bouncingLines = new Bouncer.MovingPoint[CountOfLines][];
 
-		protected void DrawBouncingLine(DrawingContext context)
+		protected Bouncer bouncer = new Bouncer();
+
+		protected void DrawLine(DrawingContext context, Bouncer.MovingPoint[] line)
 		{
-			if (Started)
-			{
-				context.DrawLine(BlackPen.Instance, bouncingLine[0], bouncingLine[1]);
-				Cycle.Forward(
-					0,
-					bouncingLine.Length,
-					(i) =>
-					{
-						bouncer.BounceMove(
-							ref bouncingLine[i],
-							this.GetActualSize(),
-							(double)this.Interval / 1000
-						);
-					}
-				);
-			}
+			Assert.Assigned(line);
+			context.DrawLine(BlackPen.Instance, line[0].Position, line[1].Position);
+		}
+
+		protected void BounceLine(Bouncer.MovingPoint[] line)
+		{
+			Cycle.Forward(
+				0,
+				line.Length,
+				(i) =>
+				{
+					bouncer.Move(
+						line[i],
+						this.GetActualSize(),
+						(double)sinceLastFrameStartedTime / 1000
+					);
+				}
+			);
 		}
 
 	}

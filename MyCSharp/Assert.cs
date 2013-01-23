@@ -12,10 +12,9 @@ namespace MyCSharp
 
 		static Assert()
 		{
-			behaviour = DefaultBehaviour;
 		}
 
-		public enum Behaviour { ThrowException, LogError }
+		public enum Behaviour { ThrowException, WriteDebug }
 
 		public static Behaviour[] DefaultBehaviour
 		{
@@ -24,18 +23,24 @@ namespace MyCSharp
 				return 
 					new Behaviour[] 
 					{ 
-						Behaviour.ThrowException
+						Behaviour.ThrowException,
 					};
 			}
 		}
 
-		public static Behaviour[] behaviour;
+		public static Behaviour[] behaviour = DefaultBehaviour;
 
 		public static void Condition(bool condition, Func<Exception> exception)
 		{
+			if (behaviour.Contains(Behaviour.WriteDebug))
+				Console.WriteLine("Asserting condition: " + condition);
 			if (false == condition)
 				if (behaviour.Contains(Behaviour.ThrowException))
+				{
+					if (behaviour.Contains(Behaviour.WriteDebug))
+						Console.WriteLine("Throwing exception " + exception.GetFullClassName() + "\"");
 					throw exception();
+				}
 		}
 
 		public static void IsMemberExpression<T>(Expression<Func<T>> expression)
@@ -56,6 +61,8 @@ namespace MyCSharp
 
 		public static void Assigned(object objectToCheck)
 		{
+			if (DefaultBehaviour.Contains(Behaviour.WriteDebug))
+				Console.WriteLine("Assert.Assigned \"" + objectToCheck + "\", " + (objectToCheck != null));
 			Condition(objectToCheck != null, () => new ArgumentNullException());
 		}
 

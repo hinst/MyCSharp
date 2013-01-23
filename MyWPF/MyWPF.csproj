@@ -89,7 +89,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlackBrush.cs" />
+    <Compile Include="QuickBrush.cs" />
     <Compile Include="BlackPen.cs" />
     <Compile Include="ControlSizeHelper.cs" />
     <Compile Include="DrawingBox.cs" />

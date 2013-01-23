@@ -58,13 +58,14 @@ namespace MyCSharp
 					() => new Exception("Method " + fullMethodName + " is not static")
 				);
 				WriteLine("[ > ] Now running " + type.FullName + ".Main...");
-				var resultObject = main.Invoke(null, new object[] { arguments });
+				var resultObject = main.Invoke(null, new object[] { arguments }); // <- THE INVOCATION
 				WriteLine("[ X ] Execution " + fullMethodName + " result: " 
 					+ (resultObject.Assigned() ? resultObject.ToString() : "none"));
 				result = resultObject is int ? (int)resultObject : 0;
 			}
 			catch (Exception exception)
 			{
+				WriteLine("Exception caught");
 				WriteLine("[ ! ] Run Main failed:\n" + exception.GetExceptionDescriptionAsText());
 				Assert.NotCritical(exception);
 			}

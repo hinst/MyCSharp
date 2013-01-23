@@ -13,7 +13,7 @@ namespace MyWPF
 			get
 			{
 				if (null == instance)
-					instance = new Pen(BlackBrush.Instance, 1);
+					instance = new Pen(QuickBrush.Black, 1);
 				return instance;
 			}
 		}
