@@ -136,7 +136,7 @@ namespace MyWPF
 					System.Windows.FlowDirection.LeftToRight,
 					FramesPerSecondTypeface,
 					10,
-					QuickBrush.Black
+					Brushes.Black
 				);
 			var whereToDrawText = 
 				new Point(

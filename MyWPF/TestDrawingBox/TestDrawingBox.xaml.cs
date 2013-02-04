@@ -120,7 +120,7 @@ namespace MyWPF.TestDrawingBox
 		protected void DrawRectangleDebugVersion(DrawingContext context)
 		{
 			Rect rectangle = new Rect(10, 10, 20, 20);
-			context.DrawRectangle(QuickBrush.Black, BlackPen.Instance, rectangle);
+			context.DrawRectangle(Brushes.Black, BlackPen.Instance, rectangle);
 		}
 
 		public const int CountOfLines = 100;
