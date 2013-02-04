@@ -90,6 +90,7 @@
     <Compile Include="AutoCreateField.cs" />
     <Compile Include="CurrentThreadCulture.cs" />
     <Compile Include="ForCycle.cs" />
+    <Compile Include="ForEach.cs" />
     <Compile Include="GetMemberExpressionValueHelper.cs" />
     <Compile Include="GetTypeNamesHelper.cs" />
     <Compile Include="GetMethodHelper.cs" />
