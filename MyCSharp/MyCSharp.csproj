@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="Assert.cs" />
     <Compile Include="AssignedHelper.cs" />
+    <Compile Include="AutoCreateField.cs" />
     <Compile Include="CurrentThreadCulture.cs" />
     <Compile Include="ForCycle.cs" />
     <Compile Include="GetMemberExpressionValueHelper.cs" />
