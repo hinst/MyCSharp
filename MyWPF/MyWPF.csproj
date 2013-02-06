@@ -92,6 +92,7 @@
     <Compile Include="BlackPen.cs" />
     <Compile Include="ControlSizeHelper.cs" />
     <Compile Include="DrawingBox.cs" />
+    <Compile Include="MouseDrop.cs" />
     <Compile Include="SizeHelper.cs" />
     <Compile Include="TestDrawingBox\DrawingBoxWindow.xaml.cs">
       <DependentUpon>DrawingBoxWindow.xaml</DependentUpon>
