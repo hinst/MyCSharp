@@ -19,9 +19,9 @@ namespace MyWPF
 		protected override void OnClick()
 		{
 			base.OnClick();
-			var tabItem = this.NavigateUp<TabItem>();
+			var tabItem = this.LogicalNavigateUp<TabItem>();
 			Assert.Assigned(tabItem);
-			var tabControl = tabItem.NavigateUp<TabControl>();
+			var tabControl = tabItem.LogicalNavigateUp<TabControl>();
 			Assert.Assigned(tabControl);
 			tabControl.Items.Remove(tabItem);
 		}

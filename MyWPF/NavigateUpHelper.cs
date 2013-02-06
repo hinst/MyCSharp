@@ -12,7 +12,7 @@ namespace MyWPF
 	public static class NavigateUpHelper
 	{
 
-		public static T NavigateUp<T>(this FrameworkElement element) where T: DependencyObject
+		public static T LogicalNavigateUp<T>(this FrameworkElement element) where T: DependencyObject
 		{
 			if (element == null)
 				return null;
@@ -29,11 +29,6 @@ namespace MyWPF
 					return null;
 			}
 			while (true);
-		}
-
-		public static FrameworkElement NavigateUp(this FrameworkElement element)
-		{
-			return NavigateUp<FrameworkElement>(element);
 		}
 
 	}
