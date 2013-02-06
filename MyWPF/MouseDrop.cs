@@ -8,16 +8,22 @@ namespace MyWPF
 	public class MouseDrop
 	{
 
-		public void Create(FrameworkElement target, Cursor cursor)
+		public void Create(Type target, Cursor cursor)
 		{
 			this.target = target;
-			Target.Cursor = cursor;
-			Target.PreviewMouseDown += PreviewTargetMouseDown;
+			dropCursor = cursor;
 		}
 
-		protected FrameworkElement target;
+		public void Attach(FrameworkElement attachTo)
+		{
+			attachedTo = attachTo;
+			attachedTo.Cursor = DropCursor;
+			attachedTo.PreviewMouseDown += PreviewTargetMouseDown;
+		}
 
-		public FrameworkElement Target
+		protected Type target;
+
+		public Type Target
 		{
 			get
 			{
@@ -25,8 +31,43 @@ namespace MyWPF
 			}
 		}
 
-		void PreviewTargetMouseDown(object sender, MouseButtonEventArgs e)
+		protected Cursor dropCursor;
+
+		public Cursor DropCursor
 		{
+			get
+			{
+				return dropCursor;
+			}
+		}
+
+		protected FrameworkElement attachedTo;
+
+		public FrameworkElement AttachedTo
+		{
+			get
+			{
+				return attachedTo;
+			}
+		}
+
+		/// <summary>
+		/// Previews mouse down events for the Target
+		/// Left click = drop
+		/// Right click = cancel
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		protected void PreviewTargetMouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (e.ChangedButton == MouseButton.Right)
+				Cancel();
+		}
+
+		public void Cancel()
+		{
+			attachedTo.PreviewMouseDown -= PreviewTargetMouseDown;
+			attachedTo.Cursor = null;
 		}
 
 	}
