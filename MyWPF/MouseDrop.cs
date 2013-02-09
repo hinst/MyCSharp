@@ -2,34 +2,30 @@
 using System.Windows;
 using System.Windows.Input;
 
+using MyWPF;
+
 namespace MyWPF
 {
 
-	public class MouseDrop
+	public class MouseDrop<T> where T: DependencyObject
 	{
 
-		public void Create(Type target, Cursor cursor)
+		public MouseDrop<T> Create(Cursor cursor)
 		{
-			this.target = target;
 			dropCursor = cursor;
+			return this;
 		}
 
-		public void Attach(FrameworkElement attachTo)
+		public void Drop(FrameworkElement attachTo)
 		{
 			attachedTo = attachTo;
 			attachedTo.Cursor = DropCursor;
 			attachedTo.PreviewMouseDown += PreviewTargetMouseDown;
 		}
 
-		protected Type target;
+		public delegate void DropAtTargetFunction(Point point, T target);
 
-		public Type Target
-		{
-			get
-			{
-				return target;
-			}
-		}
+		public DropAtTargetFunction DropAtTarget;
 
 		protected Cursor dropCursor;
 
@@ -62,6 +58,20 @@ namespace MyWPF
 		{
 			if (e.ChangedButton == MouseButton.Right)
 				Cancel();
+			if (e.ChangedButton == MouseButton.Left)
+				DropAtPoint(e.GetPosition(AttachedTo));
+		}
+
+		protected void DropAtPoint(Point point)
+		{
+			var at = Mouse.DirectlyOver as FrameworkElement;
+			if (at != null)
+			{
+				var target = at.NavigateUp<T>();
+				if (target != null)
+					DropAtTarget(point, target);
+				Cancel();
+			}
 		}
 
 		public void Cancel()

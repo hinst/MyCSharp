@@ -113,6 +113,7 @@
     <Compile Include="ExceptionInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeHierarchyInfo.cs" />
+    <Compile Include="IsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

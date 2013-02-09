@@ -96,9 +96,13 @@ namespace MyWPF.TestDrawingBox
 		{
 			base.Draw(context);
 			if (DrawCrossEnabled)
+				#pragma warning disable 162
 				DrawCross(context);
+				#pragma warning restore 162
 			if (DrawDebugRectangleEnabled)
+				#pragma warning disable 162
 				DrawRectangleDebugVersion(context);
+				#pragma warning restore 162
 			DrawAnimations(context);
 		}
 
