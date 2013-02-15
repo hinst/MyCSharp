@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Input;
 
+using NLog;
+
 using MyWPF;
 
 namespace MyWPF
@@ -10,9 +12,15 @@ namespace MyWPF
 	public class MouseDrop<T> where T: DependencyObject
 	{
 
-		public MouseDrop<T> Create(Cursor cursor)
+		protected Logger log = LogManager.GetCurrentClassLogger();
+
+		public delegate void DropAction(Point point, T target);
+
+		public MouseDrop<T> Create(Cursor cursor, DropAction drop, Action cancel = null)
 		{
 			dropCursor = cursor;
+			dropAction = drop;
+			cancelAction = cancel;
 			return this;
 		}
 
@@ -23,9 +31,9 @@ namespace MyWPF
 			attachedTo.PreviewMouseDown += PreviewTargetMouseDown;
 		}
 
-		public delegate void DropAtTargetFunction(Point point, T target);
+		protected DropAction dropAction;
 
-		public DropAtTargetFunction DropAtTarget;
+		protected Action cancelAction;
 
 		protected Cursor dropCursor;
 
@@ -67,14 +75,31 @@ namespace MyWPF
 			var at = Mouse.DirectlyOver as FrameworkElement;
 			if (at != null)
 			{
-				var target = at.NavigateUp<T>();
+				var target = at as T ?? at.NavigateUp<T>();
 				if (target != null)
-					DropAtTarget(point, target);
-				Cancel();
+				{
+					dropAction(point, target);
+					Detach();
+				}
+				else
+				{
+					log.Debug(at);
+					Cancel();
+				}
 			}
+			else
+				Cancel();
 		}
 
 		public void Cancel()
+		{
+			log.Debug("Cancel");
+			Detach();
+			if (cancelAction != null)
+				cancelAction();
+		}
+
+		public void Detach()
 		{
 			attachedTo.PreviewMouseDown -= PreviewTargetMouseDown;
 			attachedTo.Cursor = null;

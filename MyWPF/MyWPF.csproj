@@ -93,6 +93,8 @@
     <Compile Include="ControlSizeHelper.cs" />
     <Compile Include="DrawingBox.cs" />
     <Compile Include="MouseDrop.cs" />
+    <Compile Include="PropertyChangeNotifier.cs" />
+    <Compile Include="PropertyPathHelper.cs" />
     <Compile Include="SizeHelper.cs" />
     <Compile Include="TestDrawingBox\DrawingBoxWindow.xaml.cs">
       <DependentUpon>DrawingBoxWindow.xaml</DependentUpon>
@@ -105,8 +107,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="TextEditWindow.cs" />
     <Compile Include="WindowPositionConfigurationElement.cs" />
-    <Compile Include="WindowPositionManger.cs" />
+    <Compile Include="WindowPositionManager.cs" />
     <Compile Include="ClosePageButton.cs" />
     <Compile Include="NavigateUpHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,6 +145,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SubmitBlack16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UndoBlack16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

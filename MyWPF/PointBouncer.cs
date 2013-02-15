@@ -80,20 +80,8 @@ namespace MyWPF
 
 		public void SetRandom(MovingPoint point, Size areaSize)
 		{
-			if (LogDebugSetRandom)
-				#pragma warning disable 162
-				log.Debug("Assert.Assigned(point)");
-				#pragma warning restore 162
 			Assert.Assigned(point);
-			if (LogDebugSetRandom)
-				#pragma warning disable 162
-				log.Debug("Set random position");
-				#pragma warning restore 162
 			SetRandomPosition(ref point.Position, areaSize);
-			if (LogDebugSetRandom)
-				#pragma warning disable 162
-				log.Debug("Set random speed");
-				#pragma warning disable 162
 			SetRandomSpeed(ref point.Speed, areaSize);
 		}
 

@@ -59,11 +59,13 @@ namespace MyCSharp
 			Condition(instance is T, () => new InvalidCastException(""));
 		}
 
+		private const string AssignedAssertionFailedExceptionMessage = "Assertion failed";
+
 		public static void Assigned(object objectToCheck)
 		{
 			if (DefaultBehaviour.Contains(Behaviour.WriteDebug))
 				Console.WriteLine("Assert.Assigned \"" + objectToCheck + "\", " + (objectToCheck != null));
-			Condition(objectToCheck != null, () => new ArgumentNullException());
+			Condition(objectToCheck != null, () => new NullReferenceException(AssignedAssertionFailedExceptionMessage));
 		}
 
 		public static void NotCritical(Exception e)
