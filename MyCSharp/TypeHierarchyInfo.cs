@@ -4,15 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using NLog;
-
 namespace MyCSharp
 {
 
 	public class TypeHierarchyInfo
 	{
-
-		Logger logger = LogManager.GetCurrentClassLogger();
 
 		public TypeHierarchyInfo(Type type)
 		{

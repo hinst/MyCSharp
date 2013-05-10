@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -9,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("MyWPF")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("ННГАСУ")]
 [assembly: AssemblyProduct("MyWPF")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCopyright("Copyright © ННГАСУ 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -21,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("1c8b7fa0-824c-4be2-b2bd-a57635b0e047")]
+[assembly: Guid("63690c25-c4fe-4720-a3d3-e4c3385c9875")]
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //

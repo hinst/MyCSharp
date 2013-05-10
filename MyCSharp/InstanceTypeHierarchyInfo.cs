@@ -4,15 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using NLog;
-
 namespace MyCSharp
 {
 
 	public class InstanceTypeHierarchyInfo : TypeHierarchyInfo
 	{
-
-		private Logger log = LogManager.GetCurrentClassLogger();
 
 		public InstanceTypeHierarchyInfo(object instance) : base(null)
 		{
@@ -27,7 +23,6 @@ namespace MyCSharp
 			if (instance != null)
 			{
 				type = instance.GetType();
-				log.Debug(type.ToString());
 				result = GetAsText();
 			}
 			else
