@@ -21,7 +21,7 @@ namespace MyWPF
 			Caption.Content = caption;
 			Edit.Text = initialText;
 			Width = DefaultSize.Width;
-			//Height = DefaultSize.Height;
+			Height = DefaultSize.Height;
 			return this;
 		}
 
